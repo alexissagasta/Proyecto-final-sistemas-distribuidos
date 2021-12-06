@@ -1,12 +1,10 @@
-/*
+//index.js
 const ruteadorInvernaderos = require("./Manejador-de-eventos/routerInvernaderos.js");
-*/
 const express = require("express");
 var fs = require("fs");
 var morgan = require('morgan');
 var path = require("path");
 const app = express();
-
 
 async function main() {
     // Crea un archivo en el directorio actual
@@ -18,21 +16,18 @@ async function main() {
     app.use(express.json());
     app.use(express.static("./public"));
     app.use(morgan('combined', { stream: accessLogStream }))
-
-    /*
     app.use("/", ruteadorInvernaderos);
-    */
 
     app.get("/", (req, res) => {
-        res.sendFile(__dirname + "/front/index.html");
+        res.sendFile(__dirname + "/aplicacionWeb/index.html");
     });
 
-    app.get("/estilos", (req, res) => {
-        res.sendFile(__dirname + "/front/estilos.css");       
+    app.get("/aplicacionWeb/estilos", (req, res) => {
+        res.sendFile(__dirname + "/aplicacionWeb/estilos.css");       
     });
 
-    app.get("/front/card", (req, res) => {
-        res.sendFile(__dirname + "/front/card.png");       
+    app.get("/aplicacionWeb/card", (req, res) => {
+        res.sendFile(__dirname + "/aplicacionWeb/card.png");       
     });
 
     app.use(function (err, req, res, next) {
