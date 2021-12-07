@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch And Graph CVS</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="estilos.css" media="screen" />
+</head>
+
+<body>
+    <div style="background-color:aliceblue; opacity: .85;">
+        <canvas id="chart" widht="100" height="100" style="border:1px solid #000000;"></canvas>
+    </div>
+    <p style="text-align:center"><button type="button" class="button" onclick="chartTemp()">Recargar
+            Información</button><br /></p>
+    <div style="background-color:aliceblue; opacity: .89;">
+        <canvas id="chart2" widht="100" height="100" style="border:1px solid #000000;"></canvas>
+    </div>
+    <script>
+        const temperaturas = [];
+        const humedades = [];
+        const fechas = [];
+
+        chartTemp();
+
+        // Funcion que dibuja la grafica dados los datos ingresados por el archivo CSV
+        async function chartTemp() {
+            await getData();
+            alert("Nueva Información!!!");
+            const ctx = document.getElementById('chart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                backgroundColor: 'rgba(32, 32, 32)',
+                
+                data: {
+                    labels: fechas,
+                    datasets: [{
+                        label: 'Temperatura de Invernadero',
+                        data: temperaturas,
+                        backgroundColor: 'rgba(255, 135, 75)',
+                        borderColor: 'rgba(255, 135, 75)',
+                        borderWidth: 2
+                    }]
+                },
+
+                options: {
+                    scales: {
+                        y: {
+                            ticks: {
+                                // Include a dollar sign in the ticks
+                                callback: function (value, index, values) {
+                                    return value + "°";
+                                }
+                            }
+                        }
+                    }
+                }
+
+            });
+
+
+            const ctz = document.getElementById('chart2').getContext('2d');
+            const myChart2 = new Chart(ctz, {
+                type: 'line',
+                data: {
+                    labels: fechas,
+                    datasets: [{
+                        label: 'Humedad de Invernadero',
+                        data: humedades,
+                        backgroundColor: 'rgba(39, 148, 181)',
+                        borderColor: 'rgba(39, 148, 181)',
+                        borderWidth: 2
+                    }]
+                },
+
+                options: {
+                    scales: {
+                        y: {
+                            ticks: {
+                                // Include a dollar sign in the ticks
+                                callback: function (value, index, values) {
+                                    return value + "%";
+                                }
+                            }
+                        }
+                    }
+                }
+
+            });
+
+        }
+
+        // Funcion asincrona que recupera del archivo json recibido las temperaturas, humedades y fechas de lecturas
+        async function getData() {
+            //
+            const response = await fetch('invernadero.json');
+            const data = await response.json();
+            const lts = data.lecturas;
+            console.log(lts);
+
+            lts.forEach(lt => {
+
+                const fecha = lt.fecha;
+                fechas.push(fecha);
+
+                const temp = lt.temperatura;
+                temperaturas.push(temp);
+
+                const hum = lt.humedad;
+                humedades.push(hum);
+
+                console.log(fecha, temp, hum);
+
+            });
+        }
+    </script>
+
+</body>
+
+</html>

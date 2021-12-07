@@ -1,0 +1,66 @@
+{
+"idInvernadero": "1",
+"lecturas":[
+          {
+        "id": "1",
+        "temperatura": 34,
+        "humedad": 60,
+        "fecha": "22/12/21"    
+    },
+     {
+        "id": "2",
+        "temperatura": 25,
+        "humedad": 45,
+        "fecha": "23/12/21"    
+    },
+    {
+        "id": "3",
+        "temperatura": 35,
+        "humedad": 66,
+        "fecha": "24/12/21"  
+    },
+    {
+        "id": "4",
+        "temperatura": 29,
+        "humedad": 56,
+        "fecha": "25/12/21"    
+    },
+    {
+       "id": "5",
+       "temperatura": 33,
+       "humedad": 80,
+       "fecha": "26/12/21"    
+   },
+   {
+       "id": "6",
+       "temperatura": 44,
+       "humedad": 98,
+       "fecha": "27/12/21"  
+   },
+   {
+       "id": "7",
+       "temperatura": 27,
+       "humedad": 77,
+       "fecha": "28/12/21"    
+   },
+   {
+      "id": "8",
+      "temperatura": 31,
+      "humedad": 64,
+      "fecha": "29/12/21"    
+  },
+  {
+      "id": "9",
+      "temperatura": 43,
+      "humedad": 89,
+      "fecha": "30/12/21"  
+  },
+  {
+      "id": "10",
+      "temperatura": 37,
+      "humedad": 78,
+      "fecha": "31/12/21"    
+  }
+]
+
+}
