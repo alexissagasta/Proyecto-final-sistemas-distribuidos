@@ -24,6 +24,6 @@
   }
 
   body {
-    background-image: url("invernadero.jpg");
+    background-image: url("/aplicacionWeb/invernaderoImagen");
     background-color: #2b2b2b;
    }

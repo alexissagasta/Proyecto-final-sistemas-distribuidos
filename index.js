@@ -19,15 +19,19 @@ async function main() {
    // app.use("/", ruteadorInvernaderos);
 
     app.get("/", (req, res) => {
-        res.sendFile(__dirname + "/aplicacionWeb/index.html");
+        res.sendFile(__dirname + "/aplicacionWeb/indexInvernadero.html");
     });
 
     app.get("/aplicacionWeb/estilos", (req, res) => {
         res.sendFile(__dirname + "/aplicacionWeb/estilos.css");       
     });
 
-    app.get("/aplicacionWeb/card", (req, res) => {
-        res.sendFile(__dirname + "/aplicacionWeb/card.png");       
+    app.get("/aplicacionWeb/invernaderoImagen", (req, res) => {
+        res.sendFile(__dirname + "/aplicacionWeb/invernadero.jpg");       
+    });
+
+    app.get("/aplicacionWeb/invernadero", (req, res) => {
+        res.sendFile(__dirname + "/aplicacionWeb/invernadero.json");       
     });
 
     app.use(function (err, req, res, next) {
