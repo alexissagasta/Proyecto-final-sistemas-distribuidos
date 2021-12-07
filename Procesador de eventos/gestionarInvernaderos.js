@@ -63,9 +63,8 @@ class gestionarInvernaderos {
 
     agregarLecturaInvernadero = async (db, idInv, lectura, lecturaId) => {
         try {
-            var dbo = db.db("Sorteos");
+            var dbo = db.db("Invernaderos");
             var myquery = { "_id": idInv };
-            
             //busca si ya existe una lectura con el mismo id
             var idExist = await dbo.collection("invernadero").find({
                 lecturas: {
@@ -88,8 +87,8 @@ class gestionarInvernaderos {
                 console.log("Una lectura ha sido agregada");
                 console.log({ lectura: res });
                 return res;
-            }
 
+            }
 
 
         } catch (e) {

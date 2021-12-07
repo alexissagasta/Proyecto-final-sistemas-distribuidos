@@ -10,7 +10,10 @@ const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
-
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+const testDate = new Date(Date.now());
 async function main() {
     client.connect(async function (err, db) {
         let invernadero = new inv();
@@ -18,10 +21,10 @@ async function main() {
         invernadero.lecturas = []
 
         let lectura = new lec();
-        lectura._id = Math.random()
-        lectura.GradodeTemperatura = 123
-        lectura.IndicedeHumedad = 12
-        lectura.fechaLectura = Date.now()
+        lectura._id = getRandomInt(10000)
+        lectura.gradodeTemperatura = getRandomInt(10000)
+        lectura.indicedeHumedad = getRandomInt(10000)
+        lectura.fechaLectura = testDate[Symbol.toPrimitive]('string');
 
         console.log(lectura);
 
