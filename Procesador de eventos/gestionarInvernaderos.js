@@ -1,4 +1,5 @@
 //gestionarInvernaderos.js
+
 class gestionarInvernaderos {
 
     registrarInvernadero = async (db, invernadero) => {
@@ -30,21 +31,6 @@ class gestionarInvernaderos {
 
     }
 
-    actualizarInvernaderoPorId = async (db, id, premio, cantNum, organizador) => {
-        try {
-            var dbo = db.db("Invernaderos");
-            var myquery = { "_id": id };
-            var newvalues = { $set: { premio: premio, cantNumeros: cantNum, organizador: organizador } };
-            const res = await dbo.collection("invernadero").updateOne(myquery, newvalues);
-            console.log("Un invernadero ha sido actualizado");
-            console.log({ rifa: res });
-            return res;
-
-        } catch (e) {
-            console.error(e);
-        }
-
-    }
 
     listarInvernaderos = async (db) => {
 
@@ -75,7 +61,44 @@ class gestionarInvernaderos {
 
     }
 
-    
+    agregarLecturaInvernadero = async (db, idInv, lectura, lecturaId) => {
+        try {
+            var dbo = db.db("Sorteos");
+            var myquery = { "_id": idInv };
+            
+            //busca si ya existe una lectura con el mismo id
+            var idExist = await dbo.collection("invernadero").find({
+                lecturas: {
+                    $elemMatch: {
+                        _id: lecturaId, idInvernadero: idInv
+                    }
+                }
+            }).toArray();
+
+            if (idExist.length > 0) {
+                return "Una lectura ya tiene esa id!"
+            } else {
+
+                const res = await dbo.collection("invernadero").updateOne(myquery, {
+                    $addToSet:
+                    {
+                        "lecturas": lectura
+                    }
+                });
+                console.log("Una lectura ha sido agregada");
+                console.log({ lectura: res });
+                return res;
+            }
+
+
+
+        } catch (e) {
+            console.error(e);
+        }
+
+    }
+
+
 }
 
 module.exports = gestionarInvernaderos
