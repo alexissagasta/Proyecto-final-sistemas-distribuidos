@@ -26,8 +26,6 @@ public class ServerThread extends Thread {
     private Socket socket = null;
     private Socket socketRest = null;
     private Servidor server = null;
-    private static String serverName = "localhost";
-    private static int serverPort = 3000;
     private ObjectInputStream objectInputStream = null;
     private ObjectOutputStream objectOutputStream = null;
 
@@ -66,7 +64,7 @@ public class ServerThread extends Thread {
                                 post.setEntity(postingString);
                                 post.setHeader("Content-type", "application/json");
                                 HttpResponse response = httpClient.execute(post);
-//                                System.out.println(response.toString());
+                                System.out.println(response.toString());
                             } catch (IOException e) {
                               System.out.println("Error");
                             }
