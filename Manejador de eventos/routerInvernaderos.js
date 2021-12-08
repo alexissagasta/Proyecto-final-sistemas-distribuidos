@@ -86,10 +86,10 @@ client.connect(async function (err, db) {
             let invernadero = new inv();
 
             //Se asignan los valores a partir del body
-            Lectura._id = data._id
+            Lectura._id = data.id
             invernadero._id = 1;
             Lectura.gradodeTemperatura = parseInt(data.gradoTemperatura)
-            Lectura.indicedeHumedad = parseInt(data.indicedeHumedad) 
+            Lectura.indicedeHumedad = parseInt(data.indiceHumedad) 
             Lectura.fechaLectura = data.fechaLectura;
             invernadero.lecturas = []
 
