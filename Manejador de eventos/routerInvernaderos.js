@@ -23,10 +23,10 @@ const lecturaSchema = {
         },
         
         gradoTemperatura: {
-            type: "number",
+            type: "string",
         },
         indiceHumedad: {
-            type: "number",
+            type: "string",
         },
         fechaLectura: {
             type: "string",
@@ -88,9 +88,9 @@ client.connect(async function (err, db) {
             //Se asignan los valores a partir del body
             Lectura._id = data._id
             invernadero._id = 1;
-            Lectura.gradodeTemperatura = data.gradoTemperatura
-            Lectura.indicedeHumedad = data.indicedeHumedad
-            Lectura.fechaLectura = data.fechaLectura.toString();
+            Lectura.gradodeTemperatura = parseInt(data.gradoTemperatura)
+            Lectura.indicedeHumedad = parseInt(data.indicedeHumedad) 
+            Lectura.fechaLectura = data.fechaLectura;
             invernadero.lecturas = []
 
             //Almacena en Json
