@@ -35,7 +35,9 @@ const lecturaSchema = {
 };
 
 const { validate } = new Validator();
-
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
 client.connect(async function (err, db) {
 
     router.get("/invernaderos", async (req, res, next) => {
@@ -86,7 +88,7 @@ client.connect(async function (err, db) {
             let invernadero = new inv();
 
             //Se asignan los valores a partir del body
-            Lectura._id = data.id
+            Lectura._id = getRandomInt(100000000000)
             invernadero._id = 1;
             Lectura.gradodeTemperatura = parseInt(data.gradoTemperatura)
             Lectura.indicedeHumedad = parseInt(data.indiceHumedad) 
