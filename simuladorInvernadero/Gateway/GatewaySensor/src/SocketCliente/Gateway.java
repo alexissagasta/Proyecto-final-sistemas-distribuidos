@@ -82,12 +82,10 @@ public final class Gateway extends javax.swing.JFrame {
         try {
             // Creamos objeto..
             DatosSensor dato = new DatosSensor();
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            dato.setIdSensor(parseInt(txtId.getText()));
-            dato.setGradoTemperatura(txtTemperatura.getText());
-            dato.setIndiceHumedad(txtHumedad.getText());
-            txtFecha.setText(date.format(fecha));
-            dato.setFecha(formato.parse(txtFecha.getText()));
+            dato.setId(Integer.parseInt(txtId.getText()));
+            dato.setGradoTemperatura(Integer.parseInt(txtTemperatura.getText()));
+            dato.setIndiceHumedad(Integer.parseInt(txtHumedad.getText()));
+            dato.setFechaLectura(txtFecha.getText());
 
             // Enviamos..
             System.out.println("Se enviaron los nuevos datos al servidor...");
