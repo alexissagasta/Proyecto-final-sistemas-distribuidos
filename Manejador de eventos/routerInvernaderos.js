@@ -77,7 +77,7 @@ client.connect(async function (err, db) {
         }
     });
 
-    router.post("/invernadero", validate({ body: lecturaSchema }), async (req, res, next) => {
+    router.post("/invernadero", async (req, res, next) => {
         try {
             const data = req.body;
             //console.log(req.body);
