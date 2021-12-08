@@ -1,5 +1,5 @@
 //index.js
-//const ruteadorInvernaderos = require("./Manejador-de-eventos/routerInvernaderos.js");
+const ruteadorInvernaderos = require("./Manejador de eventos/routerInvernaderos.js");
 const express = require("express");
 var fs = require("fs");
 var morgan = require('morgan');
@@ -16,7 +16,7 @@ async function main() {
     app.use(express.json());
     app.use(express.static("./public"));
     app.use(morgan('combined', { stream: accessLogStream }))
-   // app.use("/", ruteadorInvernaderos);
+    app.use("/", ruteadorInvernaderos);
 
     app.get("/", (req, res) => {
         res.sendFile(__dirname + "/aplicacionWeb/indexInvernadero.html");

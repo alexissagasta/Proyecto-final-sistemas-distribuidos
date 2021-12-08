@@ -43,7 +43,6 @@ client.connect(async function (err, db) {
             //Busca en JSON
             let invernaderos = await gestorInvernaderos.listarInvernaderos(db);
 
-
             if (invernaderos.length === 0) {
 
                 let mensaje = "No hay invernaderos!";
@@ -56,75 +55,70 @@ client.connect(async function (err, db) {
         } catch (err) {
             next(err)
         }
+    });
+
+    router.get("/invernadero/:id", async (req, res, next) => {
+        try {
+            var id = req.params.id;
+            let invernadero = await gestorInvernaderos.listarInvernaderoPorId(db, id);
 
 
-        router.get("/invernadero/:id", async (req, res, next) => {
-            try {
-                var id = req.params.id;
-                let invernadero = await gestorInvernaderos.listarInvernaderoPorId(db, id);
+            if (invernadero.length === 0) {
 
+                mensaje = "invernadero no encontrada!"
 
-                if (invernadero.length === 0) {
+                res.status(206).send(mensaje);
+            } else {
 
-                    mensaje = "invernadero no encontrada!"
-
-                    res.status(206).send(mensaje);
-                } else {
-
-                    res.status(200).send(invernadero);
-                }
-            } catch (err) {
-                next(err)
+                res.status(200).send(invernadero);
             }
-        });
+        } catch (err) {
+            next(err)
+        }
+    });
 
-        router.post("/invernadero", validate({ body: invernaderoSchema }), async (req, res, next) => {
-            try {
-                const data = req.body;
-                //console.log(req.body);
-                //Se crea el concursante
-                let Lectura = new lec();
-                let invernadero = new inv();
-                
-                
+    router.post("/invernadero", validate({ body: lecturaSchema }), async (req, res, next) => {
+        try {
+            const data = req.body;
+            //console.log(req.body);
+            //Se crea el concursante
+            let Lectura = new lec();
+            let invernadero = new inv();
 
-                //Se asignan los valores a partir del body
-                  Lectura._id = data._id.toString();
-                  invernadero._id = 1;
-                Lectura.gradodeTemperatura= data.gradoTemperatura.toString();
-                Lectura.indicedeHumedad= data.indicedeHumedad.toString();
-                Lectura.fechaLectura = data.fechaLectura.toString();
-                invernadero.lecturas = []
-                
+            //Se asignan los valores a partir del body
+            Lectura._id = data._id
+            invernadero._id = 1;
+            Lectura.gradodeTemperatura = data.gradoTemperatura
+            Lectura.indicedeHumedad = data.indicedeHumedad
+            Lectura.fechaLectura = data.fechaLectura.toString();
+            invernadero.lecturas = []
 
-                //Almacena en Json
+            //Almacena en Json
+            info = await gestorInvernaderos.agregarLecturaInvernadero(db, invernadero._id, Lectura, Lectura._id);
+            console.log(info);
 
-                info = await gestorInvernaderos.agregarLecturaInvernadero(db, invernadero._id, Lectura, Lectura._id);
-                console.log(info);
-                //Se verifica si se agrego el concursante
-                if (info === "Una lectura ya tiene esa id!") {
+            //Se verifica si se agrego la lectura
+            if (info === "Una lectura ya tiene esa id!") {
+                res.status(200).send(info);
+            } else {
+                if (info === "El numero ya esta tomado!") {
                     res.status(200).send(info);
                 } else {
-                    if (info === "El numero ya esta tomado!") {
-                        res.status(200).send(info);
+                    if (info.modifiedCount > 0) {
+                        mensaje = "Lectura agregado!"
+                        res.status(201).send(mensaje);
                     } else {
-                        if (info.modifiedCount > 0) {
-                            mensaje = "Lectura agregado!"
-                            res.status(201).send(mensaje);
-                        } else {
 
-                            mensaje = 'lectura no agregada!'
+                        mensaje = 'lectura no agregada!'
 
-                            res.status(202).send(mensaje);
-                        }
+                        res.status(202).send(mensaje);
                     }
                 }
-            } catch (err) {
-                next(err)
             }
-
-        });
+        } catch (err) {
+            next(err)
+        }
     });
 });
-    client.close();
-    module.exports = router
+client.close();
+module.exports = router

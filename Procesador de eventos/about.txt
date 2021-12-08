@@ -1,1 +1,1 @@
-Logica del servidor.
+Logica de negocio del servidor.

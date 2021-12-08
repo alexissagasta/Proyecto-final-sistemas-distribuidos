@@ -24,12 +24,12 @@ async function main() {
         lectura._id = getRandomInt(10000)
         lectura.gradodeTemperatura = getRandomInt(10000)
         lectura.indicedeHumedad = getRandomInt(10000)
-        lectura.fechaLectura = testDate[Symbol.toPrimitive]('string');
-
+        //lectura.fechaLectura = testDate[Symbol.toPrimitive]('string');
+        lectura.fechaLectura = getRandomInt(10000).toString()
         console.log(lectura);
 
         //await gestorRifas.registrarInvernadero(db, invernadero)
-        await gestorRifas.agregarLecturaInvernadero(db, 1, lectura, lectura._id)
+        //await gestorRifas.agregarLecturaInvernadero(db, 1, lectura, lectura._id)
         await gestorRifas.listarInvernaderos(db)
 
     })
